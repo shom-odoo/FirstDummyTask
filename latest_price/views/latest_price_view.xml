@@ -1,26 +1,48 @@
 <?xml version="1.0"?>
 <odoo>
-<!--    <record id="inherited_sale_order_line_tree" model="ir.ui.view">-->
-<!--        <field name="name">inherited.sale.order.line</field>-->
-<!--        <field name="model">sale.order.line</field>-->
-<!--        <field name="inherit_id" ref="sale.view_order_form"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//field[@name='tax_id']" position="after">-->
-<!--                &lt;!&ndash;                <field name="latest_price"/>&ndash;&gt;-->
-<!--                                <field name="colum"/>-->
-
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
-
     <record id="inherited_sale_order_form" model="ir.ui.view">
         <field name="name">inherited.sale.order</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree" position="inside">
-                <!--                <field name="latest_price"/>-->
-                    <field name="latest_price" string="Latest Price"/>
+                <field name="latest_price" string="Latest Price"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherited_purchase_order_form" model="ir.ui.view">
+        <field name="name">inherited.purchase.order</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree" position="inside">
+                <field name="latest_price" string="Latest Price"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherited_product_template_form" model="ir.ui.view">
+        <field name="name">inherited.product.product</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='inventory']" position="after">
+                <page name="purchace_price" string="Purchase prices">
+                    <field name="product_variant_ids">
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+        <record id="inherited_product_tree_view" model="ir.ui.view">
+        <field name="name">inherited.product.product.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="last_purchase_price"/>
             </xpath>
         </field>
     </record>
